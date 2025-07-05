@@ -6,11 +6,13 @@ const Listing = require("./models/listing.js")
 const path = require("path")
 const methodOverride = require("method-override")
 const ejsMate = require("ejs-mate")
-const Review = require("./models/review.js")
 
 const wrapAsync = require("./utils/wrapAsync.js")
 const ExpressError = require("./utils/ExpressError.js")
 const {listingSchema} = require("./schema.js")
+const Review = require("./models/review.js")
+
+const {reviewSchema} = require("./schema.js")
 
 app.set("view engine", "ejs")
 app.set("views", path.join(__dirname, "views"))
@@ -43,6 +45,18 @@ let {error} = listingSchema.validate(req.body)
    }
 }
 
+const validateReview = (req,res,next)=>{
+let {error} = reviewSchema.validate(req.body)
+
+   if(error){
+    let errMsg = error.details.map((el)=>el.message).join(",")
+    throw new ExpressError(400, errMsg)
+   }
+   else{
+    next()
+   }
+}
+
 //index route
 app.get("/listings",wrapAsync(async (req,res)=>{
    const allListings = await Listing.find({})
@@ -62,7 +76,7 @@ app.get("/listings/:id", wrapAsync(async (req, res, next) => {
 
  
 
-    const listing = await Listing.findById(id).populate("reviews");
+    const listing = await Listing.findById(id);
 
     if (!listing) {
         return next(new ExpressError(404, "Listing Not Found"));
@@ -107,26 +121,19 @@ app.delete("/listings/:id", wrapAsync(async(req,res)=>{
 }))
 
 
-//Reviews
-//Post Route
-app.post("/listings/:id/reviews", wrapAsync(async (req, res) => {
-    try {
-        const listing = await Listing.findById(req.params.id);
-        const newReview = new Review(req.body.review); // ✅ define first
-        await newReview.save();
+//reviews
 
-        listing.reviews.push(newReview._id); // ✅ use after definition
-        await listing.save();
+app.post("/listings/:id/reviews", validateReview,  wrapAsync(async(req,res)=>{
+    let listing =await Listing.findById(req.params.id)
+    let newReview = new Review(req.body.review)
+    listing.reviews.push(newReview)
 
-        console.log("Review saved and added to listing");
-        res.redirect(`/listings/${listing._id}`);
-    } catch (err) {
-        console.error("Error saving review:", err);
-        res.status(500).send("Error saving review");
-    }
-}));
+    await newReview.save()
+    await listing.save()
 
+    res.redirect(`/listings/${listing._id}`)
 
+}))
 
 
 

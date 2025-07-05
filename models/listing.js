@@ -22,7 +22,7 @@ const listingSchema = new Schema({
     location:String,
     reviews: [
         {
-            type:mongoose.Schema.Types.ObjectId,
+            type:Schema.Types.ObjectId,
             ref:"Review"
         }
     ] 
