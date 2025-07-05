@@ -1,7 +1,7 @@
 const express = require ("express");
 const app = express();
 const mongoose=require("mongoose")
-const mongo_url="mongodb://127.0.0.1:27017/test"
+const mongo_url="mongodb://127.0.0.1:27017/wanderlust"
 const Listing = require("./models/listing.js")
 const path = require("path")
 const methodOverride = require("method-override")
@@ -76,7 +76,7 @@ app.get("/listings/:id", wrapAsync(async (req, res, next) => {
 
  
 
-    const listing = await Listing.findById(id);
+    const listing = await Listing.findById(id).populate("reviews");
 
     if (!listing) {
         return next(new ExpressError(404, "Listing Not Found"));
@@ -135,8 +135,15 @@ app.post("/listings/:id/reviews", validateReview,  wrapAsync(async(req,res)=>{
 
 }))
 
+//review delete
+app.delete("/listings/:id/reviews/:reviewId", wrapAsync(async(req,res)=>{
+    let {id, reviewId} = req.params
+    await Listing.findByIdAndUpdate(id, {$pull: {reviews: reviewId}})
+     await Review.findByIdAndDelete(reviewId)
+     
 
-
+     res.redirect(`/listings/${id}`)
+}))
 
 
 app.use((req, res, next) => {
