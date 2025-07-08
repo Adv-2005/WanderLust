@@ -8,11 +8,15 @@ const methodOverride = require("method-override")
 const ejsMate = require("ejs-mate")
 const session = require("express-session")
 const flash = require("connect-flash")
+const passort = require("passport")
+const LocalStrategy = require("passport-local")
+const User = require("./models/user.js")
 
 
-
-const listings = require("./routes/listing.js")
-const reviews = require("./routes/review.js")
+const listingsRouter = require("./routes/listing.js")
+const reviewsRouter = require("./routes/review.js");
+const userRouter = require("./routes/user.js")
+const passport = require("passport");
 
 main().then(()=>{
     console.log("connected to db")
@@ -48,10 +52,13 @@ app.get("/", (req,res)=>{
 
 
 app.use(session(sessionOptions))
-
 app.use(flash())
+app.use(passort.initialize())
+app.use(passort.session())
+passport.use(new LocalStrategy(User.authenticate()))
 
-
+passport.serializeUser(User.serializeUser())
+passort.deserializeUser(User.deserializeUser())
 
 app.use((req,res,next)=>{
     res.locals.success = req.flash("success")
@@ -62,8 +69,10 @@ app.use((req,res,next)=>{
     next()
 })
 
-app.use("/listings", listings)
-app.use("/listings/:id/reviews", reviews)
+app.use("/listings", listingsRouter)
+app.use("/listings/:id/reviews", reviewsRouter)
+app.use("/", userRouter)
+
 
 
 
