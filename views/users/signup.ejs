@@ -15,11 +15,32 @@
                 <div class="valid-feedback">Looks Good</div>
             </div>
 
-            <div class="mb-3">
-                <label for="password" class="form-label" >Password</label>
-                <input type="password" name="password"  class="form-control" required>
-            </div>  
+            <div class="mb-3 position-relative">
+                <label for="password" class="form-label">Password</label>
+                <div class="input-group">
+                    <input type="password" name="password" id="password" class="form-control" required>
+                    <span class="input-group-text" id="togglePassword" style="cursor:pointer;">
+                        <i class="fa-solid fa-eye"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="mb-3 position-relative">
+                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                <div class="input-group">
+                    <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" required>
+                    <span class="input-group-text" id="toggleConfirmPassword" style="cursor:pointer;">
+                        <i class="fa-solid fa-eye"></i>
+                    </span>
+                </div>
+                <div class="invalid-feedback" id="confirmPasswordFeedback">
+                    Passwords do not match.
+                </div>
+            </div>
             <button class="btn btn-success">SignUp</button>
         </form>
-        </div>
+    </div>
 </div>
+<script>
+
+    
+</script>
