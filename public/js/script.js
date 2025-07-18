@@ -47,19 +47,3 @@ document.getElementById('toggleConfirmPassword').addEventListener('click', funct
     }
 });
 
-//confirm password validation
-    const form = document.querySelector('form');
-    const password = document.getElementById('password');
-    const confirmPassword = document.getElementById('confirmPassword');
-    const confirmFeedback = document.getElementById('confirmPasswordFeedback');
-
-    form.addEventListener('submit', function(e) {
-        if (password.value !== confirmPassword.value) {
-            confirmPassword.classList.add('is-invalid');
-            confirmFeedback.style.display = 'block';
-            e.preventDefault();
-        } else {
-            confirmPassword.classList.remove('is-invalid');
-            confirmFeedback.style.display = 'none';
-        }
-    });

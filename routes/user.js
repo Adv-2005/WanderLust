@@ -14,8 +14,15 @@ let {email , username, password} = req.body
     let newUser =  new User({email,username})
     const registeredUser = await User.register(newUser , password)
     console.log(registeredUser)
-    req.flash("success" , "Welcome to Wanderlust!")
+    req.login(registeredUser, (err)=>{
+        if(err){
+            req.flash("error", "Login failed, please try again!")
+            return next(err)
+        }
+        req.flash("success" , "Welcome to Wanderlust!")
     res.redirect("/listings")
+    })
+    
     }
     catch(error){
         req.flash("error", error.message)
