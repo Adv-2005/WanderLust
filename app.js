@@ -8,7 +8,6 @@ const methodOverride = require("method-override")
 const ejsMate = require("ejs-mate")
 const session = require("express-session")
 const flash = require("connect-flash")
-const passort = require("passport")
 const LocalStrategy = require("passport-local")
 const User = require("./models/user.js")
 
@@ -53,12 +52,11 @@ app.get("/", (req,res)=>{
 
 app.use(session(sessionOptions))
 app.use(flash())
-app.use(passort.initialize())
-app.use(passort.session())
+app.use(passport.initialize())
+app.use(passport.session())
 passport.use(new LocalStrategy(User.authenticate()))
-
 passport.serializeUser(User.serializeUser())
-passort.deserializeUser(User.deserializeUser())
+passport.deserializeUser(User.deserializeUser())
 
 app.use((req,res,next)=>{
     res.locals.success = req.flash("success")
