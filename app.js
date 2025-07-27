@@ -19,6 +19,8 @@ const User = require("./models/user.js")
 
 
 
+
+
 const listingsRouter = require("./routes/listing.js")
 const reviewsRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js")
@@ -52,9 +54,9 @@ const sessionOptions = {
 
 }
 
-app.get("/", (req,res)=>{
-    res.send("working root")
-})
+// app.get("/", (req,res)=>{
+//     res.send("working root")
+// })
 
 
 app.use(session(sessionOptions))

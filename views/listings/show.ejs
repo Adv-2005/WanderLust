@@ -1,4 +1,12 @@
 <% layout("/layouts/boilerplate.ejs") %>
+
+<!-- Inside your EJS file -->
+<script>
+  const mapToken = '<%= process.env.MAP_TOKEN %>';
+  const coordinates = <%- JSON.stringify(listing.geometry.coordinates || [77.1025, 28.7041]) %>;
+</script>
+
+
 <form action="/listings">
     <button class="btn btn-dark mt-2"><i class="fa-solid fa-arrow-left"></i></button>
 </form>
@@ -83,8 +91,15 @@
             </div>
                             <button class="btn btn-outline-dark">Submit</button>
         </form>
+        <%}%>
     </div>
-    <%}%>
+    
+<div class="col-8 offset-2 mb-3 mt-3">
+    <hr>
+    <h3>Location</h3>
+<div id="map"></div>
+</div>
 
 </div>
 
+<script src="/js/map.js"></script>
