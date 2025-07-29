@@ -19,7 +19,7 @@
   })()
 
 // Toggle password visibility
-document.getElementById('togglePassword').addEventListener('click', function () {
+  document.getElementById('togglePassword').addEventListener('click', function () {
     const pwd = document.getElementById('password');
     const icon = this.querySelector('i');
     if (pwd.type === 'password') {
@@ -32,8 +32,7 @@ document.getElementById('togglePassword').addEventListener('click', function () 
         icon.classList.add('fa-eye');
     }
 });
-
-document.getElementById('toggleConfirmPassword').addEventListener('click', function () {
+ document.getElementById('toggleConfirmPassword').addEventListener('click', function () {
     const pwd = document.getElementById('confirmPassword');
     const icon = this.querySelector('i');
     if (pwd.type === 'password') {
@@ -45,5 +44,19 @@ document.getElementById('toggleConfirmPassword').addEventListener('click', funct
         icon.classList.remove('fa-eye-slash');
         icon.classList.add('fa-eye');
     }
-});
+})
+
+ let taxSwitch = document.getElementById("switchCheckChecked");
+
+  taxSwitch.addEventListener("change", () => {
+    let initalPrice = document.getElementsByClassName("pricewoTax");
+    for (let price of initalPrice) {
+      price.style.display = taxSwitch.checked ? "none" : "inline";
+    }
+    let taxElements = document.getElementsByClassName("tax");
+    for (let tax of taxElements) {
+      tax.style.display = taxSwitch.checked ? "inline" : "none";
+    }
+  });
+
 

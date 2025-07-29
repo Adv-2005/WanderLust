@@ -11,6 +11,7 @@ body{
 .navbar{
     height: 5rem;
     background-color: white;
+    position: sticky !important;
 }
 
 .fa-compass{
@@ -120,3 +121,40 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
 
 
 #map { height: 400px; width: 80vh; }
+
+ #filters {
+      display: flex;
+      align-items: center;
+      top: 0;
+      z-index: 1000;
+      background-color: white;
+      /* border-bottom: 1px solid #ccc; */
+    }
+
+    .filter {
+      margin-top: 15px;
+      display: flex;
+      flex-direction: column;
+     justify-content: center;
+     align-items: center;
+      margin-right: 25px;
+      cursor: pointer;
+      opacity: 0.8;
+    }
+    .filter:hover {
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+    .filter i {
+      margin-right:   5px;
+    }
+
+     .tax-toggle {
+      border: 1px solid black;
+    border-radius: 1rem;
+    margin-left: auto; /* Pushes to the right */
+    height: 3rem;
+    padding: 0.6rem;
+  }
+
+ 

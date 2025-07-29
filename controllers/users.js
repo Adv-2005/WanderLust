@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
+const User = require("../models/user"); // Adjust the path if needed
+
 
 module.exports.renderSignup=(req,res)=>{
     res.render("users/signup.ejs")
