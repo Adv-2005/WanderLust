@@ -6,18 +6,19 @@ if(process.env.NODE_ENV !== "production"){
 const express = require ("express");
 const app = express();
 const mongoose=require("mongoose")
-const mongo_url="mongodb://127.0.0.1:27017/wanderlust"
+// const mongo_url="mongodb+srv://adivarshney:Jarvis%402010@cluster0.02cgib5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 const ExpressError = require("./utils/ExpressError.js")
 const path = require("path")
 const methodOverride = require("method-override")
 const ejsMate = require("ejs-mate")
 const session = require("express-session")
+const MongoStore = require('connect-mongo');
 const flash = require("connect-flash")
 const LocalStrategy = require("passport-local")
 const User = require("./models/user.js")
 
 
-
+const dbURL = process.env.ATLASDB_URL
 
 
 
@@ -32,7 +33,7 @@ main().then(()=>{
     console.log(err)
 })
 async function main(){
-    await mongoose.connect(mongo_url)
+    await mongoose.connect(dbURL)
 }
 
 app.set("view engine", "ejs")
@@ -42,8 +43,23 @@ app.use(methodOverride("_method"))
 app.engine('ejs', ejsMate)
 app.use(express.static(path.join(__dirname, "/public")))
 
+const store = MongoStore.create(
+    {
+        mongoUrl: dbURL,
+        crypto:{
+            secret: process.env.SECRET,
+        },
+        touchAfter:24*3600
+    }
+)
+
+store.on("error" , ()=>{
+    console.log("Error in Mongo Store Session", err)
+})
+
 const sessionOptions = {
-    secret: "mysecretcode",
+    store,
+    secret: process.env.SECRET,
     saveUninitialized: true,
     resave:false,
     cookie:{
@@ -53,6 +69,7 @@ const sessionOptions = {
     }
 
 }
+
 
 // app.get("/", (req,res)=>{
 //     res.send("working root")
