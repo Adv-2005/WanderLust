@@ -72,11 +72,6 @@ const sessionOptions = {
 }
 
 
-// app.get("/", (req,res)=>{
-//     res.send("working root")
-// })
-
-
 app.use(session(sessionOptions))
 app.use(flash())
 app.use(passport.initialize())
@@ -97,7 +92,9 @@ app.use("/listings/:id/reviews", reviewsRouter)
 app.use("/", userRouter)
 
 
-
+app.get("/", (req, res) => {
+    res.redirect("/listings");
+  });
 
 app.use((req, res, next) => {
     next(new ExpressError(404, "Page not Found"))
