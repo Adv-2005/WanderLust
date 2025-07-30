@@ -26,6 +26,7 @@ const listingsRouter = require("./routes/listing.js")
 const reviewsRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js")
 const passport = require("passport");
+console.log("🔍 dbURL:", dbURL);
 
 main().then(()=>{
     console.log("connected to db")
