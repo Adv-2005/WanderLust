@@ -19,44 +19,74 @@
   })()
 
 // Toggle password visibility
-  document.getElementById('togglePassword').addEventListener('click', function () {
-    const pwd = document.getElementById('password');
-    const icon = this.querySelector('i');
-    if (pwd.type === 'password') {
-        pwd.type = 'text';
+document.addEventListener('DOMContentLoaded', function () {
+  const toggleBtn = document.getElementById('togglePassword');
+  const pwdInput = document.getElementById('password');
+
+  if (toggleBtn && pwdInput) {
+    toggleBtn.addEventListener('click', function () {
+      const icon = this.querySelector('i');
+
+      if (pwdInput.type === 'password') {
+        pwdInput.type = 'text';
         icon.classList.remove('fa-eye');
         icon.classList.add('fa-eye-slash');
-    } else {
-        pwd.type = 'password';
+      } else {
+        pwdInput.type = 'password';
         icon.classList.remove('fa-eye-slash');
         icon.classList.add('fa-eye');
-    }
+      }
+    });
+  }
 });
- document.getElementById('toggleConfirmPassword').addEventListener('click', function () {
-    const pwd = document.getElementById('confirmPassword');
-    const icon = this.querySelector('i');
-    if (pwd.type === 'password') {
-        pwd.type = 'text';
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  const toggleBtn = document.getElementById('toggleConfirmPassword');
+  const pwdInput = document.getElementById('confirmPassword');
+
+  if (toggleBtn && pwdInput) {
+    toggleBtn.addEventListener('click', function () {
+      const icon = this.querySelector('i');
+
+      if (pwdInput.type === 'password') {
+        pwdInput.type = 'text';
         icon.classList.remove('fa-eye');
         icon.classList.add('fa-eye-slash');
-    } else {
-        pwd.type = 'password';
+      } else {
+        pwdInput.type = 'password';
         icon.classList.remove('fa-eye-slash');
         icon.classList.add('fa-eye');
-    }
-})
+      }
+    });
+  }
+});
 
- let taxSwitch = document.getElementById("switchCheckChecked");
 
-  taxSwitch.addEventListener("change", () => {
-    let initalPrice = document.getElementsByClassName("pricewoTax");
-    for (let price of initalPrice) {
+
+document.addEventListener("DOMContentLoaded", function () {
+  const taxSwitch = document.getElementById("switchCheckChecked");
+
+  // 🛑 Exit early if the toggle doesn't exist on this page
+  if (!taxSwitch) return;
+
+  function updatePriceDisplay() {
+    const basePrices = document.getElementsByClassName("pricewoTax");
+    const taxPrices = document.getElementsByClassName("tax");
+
+    for (let price of basePrices) {
       price.style.display = taxSwitch.checked ? "none" : "inline";
     }
-    let taxElements = document.getElementsByClassName("tax");
-    for (let tax of taxElements) {
+
+    for (let tax of taxPrices) {
       tax.style.display = taxSwitch.checked ? "inline" : "none";
     }
-  });
+  }
 
+  // Initial state on page load
+  updatePriceDisplay();
 
+  // Update on toggle
+  taxSwitch.addEventListener("change", updatePriceDisplay);
+});
