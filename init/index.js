@@ -8,7 +8,7 @@ const geocodingClient = mbxGeocoding({ accessToken: process.env.MAP_TOKEN });
 
 
 
-const mongo_url="mongodb://127.0.0.1:27017/wanderlust"
+const mongo_url=process.env.ATLASDB_URL
 
 main().then(()=>{
     console.log("connected to db")

@@ -158,3 +158,14 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
   }
 
  
+@media (max-width: 600px) {
+    .container {
+        width: 100%;
+        padding: 0 10px;
+    }
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    /* Stack other elements as needed */
+}
