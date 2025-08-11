@@ -122,4 +122,26 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem("theme", "light");
         }
     });
+
+     function adjustBodyPadding() {
+        const navbar = document.querySelector('.navbar');
+        if (navbar) {
+            const navbarHeight = navbar.offsetHeight;
+            document.body.style.paddingTop = `${navbarHeight}px`;
+        }
+    }
+
+    // Adjust padding on initial load
+    adjustBodyPadding();
+
+    // Adjust padding on window resize
+    window.addEventListener('resize', adjustBodyPadding);
+
+    // Also adjust when the navbar collapse is shown/hidden
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    if(navbarToggler) {
+        const navbarCollapse = document.getElementById('navbarNavAltMarkup');
+        navbarCollapse.addEventListener('shown.bs.collapse', adjustBodyPadding);
+        navbarCollapse.addEventListener('hidden.bs.collapse', adjustBodyPadding);
+    }
 });
