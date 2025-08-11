@@ -90,3 +90,36 @@ document.addEventListener("DOMContentLoaded", function () {
   // Update on toggle
   taxSwitch.addEventListener("change", updatePriceDisplay);
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    // --- Tax Toggle Logic (from before) ---
+    const taxSwitch = document.getElementById("switchCheckChecked");
+    if (taxSwitch) {
+        // ... your existing tax toggle code ...
+    }
+
+    // --- Theme Switcher Logic ---
+    const themeCheckbox = document.getElementById("theme-checkbox");
+    const currentTheme = localStorage.getItem("theme");
+    const htmlElement = document.documentElement; // Get the <html> element
+
+    // Apply the saved theme on page load
+    if (currentTheme) {
+        htmlElement.setAttribute("data-theme", currentTheme);
+        if (currentTheme === "dark") {
+            themeCheckbox.checked = true;
+        }
+    }
+
+    // Listen for toggle change
+    themeCheckbox.addEventListener("change", () => {
+        if (themeCheckbox.checked) {
+            htmlElement.setAttribute("data-theme", "dark");
+            localStorage.setItem("theme", "dark");
+        } else {
+            htmlElement.setAttribute("data-theme", "light");
+            localStorage.setItem("theme", "light");
+        }
+    });
+});

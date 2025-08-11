@@ -1,171 +1,316 @@
-body{
+/* --- Color & Theme Variables --- */
+:root {
+  --background-color: #f8f9fa;
+  --text-color: #212529;
+  --secondary-text-color: #6c757d;
+  --card-bg: #ffffff;
+  --card-shadow: rgba(0, 0, 0, 0.1);
+  --card-shadow-hover: rgba(0, 0, 0, 0.15);
+  --navbar-bg: #ffffff;
+  --footer-bg: #e9ecef;
+  --accent-color: #ff5a5f;
+  --accent-color-darker: #e04f54;
+  --border-color: #dee2e6;
+  --icon-opacity: 0.7;
+}
+
+[data-theme="dark"] {
+  --background-color: #121212;
+  --text-color: #e0e0e0;
+  --secondary-text-color: #a0a0a0;
+  --card-bg: #1e1e1e;
+  --card-shadow: rgba(0, 0, 0, 0.5);
+  --card-shadow-hover: rgba(0, 0, 0, 0.6);
+  --navbar-bg: #1e1e1e;
+  --footer-bg: #1e1e1e;
+  --accent-color: #ff5a5f;
+  --accent-color-darker: #e04f54;
+  --border-color: #333;
+  --icon-opacity: 0.8;
+}
+
+
+/* --- General Body and Typography --- */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.container{
+.container {
     flex: 1;
 }
 
-.navbar{
+/* --- Navigation Bar --- */
+.navbar {
     height: 5rem;
-    background-color: white;
-    position: sticky !important;
+    background-color: var(--navbar-bg);
+    box-shadow: 0 2px 4px var(--card-shadow);
+    transition: background-color 0.3s ease;
 }
 
-.fa-compass{
-    color: #fe424d;
-    font-size: 2rem;
+.navbar-brand .fa-compass {
+    color: var(--accent-color);
+    font-size: 2.5rem;
 }
 
-.nav-link{
-    color: #222222 !important;
+.nav-link {
+    color: var(--text-color) !important;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s ease;
 }
 
-.f-info-links a{
-    color: #222222;
+/* --- Listing Card Styling --- */
+.listing-card {
+    border: 1px solid var(--border-color) !important;
+    margin-bottom: 2rem;
+    border-radius: 1rem;
+    background: var(--card-bg);
+    box-shadow: 0 4px 15px var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.listing-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px var(--card-shadow-hover);
+}
+
+.card-img-top {
+    border-radius: 1rem 1rem 0 0 !important;
+    width: 100% !important;
+    height: 200px;
+    object-fit: cover !important;
+}
+
+.listing-link {
     text-decoration: none;
-    margin-right: 0.3rem;
+    color: inherit;
 }
 
-
-.f-info-links a:hover{
- text-decoration: underline; 
+.card-body {
+    padding: 1.5rem;
 }
 
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+      color: var(--text-color);
+}
 
-.f-info{
+.card-text {
+    color: var(--secondary-text-color);
+}
+/* --- Fix for Visible Titles --- */
+h3, .card-title {
+    color: var(--text-color);
+}
+
+/* --- Buttons and Interactive Elements --- */
+.add-btn, .edit-btn, .btn-danger {
+    background-color: var(--accent-color) !important;
+    border: none !important;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.add-btn:hover, .edit-btn:hover, .btn-danger:hover {
+    background-color: var(--accent-color-darker) !important;
+}
+
+/* --- Show Page --- */
+.show-img {
+    height: 50vh;
+    border-radius: 1rem;
+    object-fit: cover;
+}
+
+/* --- Footer --- */
+.f-info {
     text-align: center;
-    height: 7rem;
-    background-color: #ebebeb;
+    padding: 2rem 0;
+    background-color: var(--footer-bg);
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-}
-
-.f-info-socials,.f-info-links,.f-brand{
-    width: 100%;
-    display: flex;
     align-items: center;
-    justify-content: center;
+    transition: background-color 0.3s ease;
 }
 
-.f-info-socials i{
-    font-size: 1.2rem;
-    margin: 0.3rem;
-    color: #222222;
-}
-
-.f-info-socials i:hover{
-    font-size: 1.5rem;
-}
-
-.listing-card{
-    border: none !important;
-    margin-bottom: 2rem;
-    margin-right: 2rem;
-}
-.card-img-top{
-    border-radius: 1rem !important;
-    width: 100% !important;
-    object-fit: cover !important;
-
-}
-
-.listing-link{
+.f-info-links a {
+    color: var(--text-color);
     text-decoration: none;
-}
-.card-body{
-   display:flex;
-   flex-direction: column;
-    justify-content:space-evenly;
+    margin: 0 0.5rem;
+    font-weight: 500;
 }
 
-.card-img-overlay{
+.f-info-links a:hover {
+    text-decoration: underline;
+}
+
+.f-info-socials i {
+    font-size: 1.5rem;
+    margin: 0 0.75rem;
+    color: var(--text-color);
+    transition: transform 0.3s ease;
+}
+
+.f-info-socials i:hover {
+    transform: scale(1.2);
+}
+
+/* --- Filters --- */
+#filters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0;
+    background-color: var(--navbar-bg); /* Match navbar for consistency */
+    transition: background-color 0.3s ease;
+}
+
+.filter {
+    margin: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    opacity: var(--icon-opacity);
+    transition: opacity 0.3s ease;
+}
+
+.filter:hover {
+    opacity: 1;
+}
+
+.filter i {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* --- Theme Switcher CSS --- */
+/* --- Theme Switcher CSS --- */
+.theme-switch-wrapper {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.theme-switch {
+  display: inline-block;
+  height: 26px;
+  position: relative;
+  width: 50px;
+}
+.theme-switch input {
+  display:none;
+}
+.slider {
+  background-color: #ccc;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: .4s;
+}
+.slider:before {
+  background-color: #fff;
+  bottom: 3px;
+  content: "";
+  height: 20px;
+  left: 3px;
+  position: absolute;
+  transition: .4s;
+  width: 20px;
+}
+input:checked + .slider {
+  background-color: var(--accent-color);
+}
+.slider.round {
+  border-radius: 34px;
+}
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* -- UPDATED ICON STYLES -- */
+.slider .sun-icon, .slider .moon-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    transition: opacity 0.3s ease;
+}
+
+/* Sun icon (visible in light mode on gray background) */
+.slider .sun-icon {
+    left: 6px;
+    color: #495057; /* Dark gray for high contrast */
+    opacity: 1;
+}
+
+/* Moon icon (visible in dark mode on accent-color background) */
+.slider .moon-icon {
+    right: 6px;
+    color: #fff; /* White provides good contrast here */
     opacity: 0;
 }
-.card-img-overlay:hover{
-    opacity: 0.2;
-    background-color: white;
+
+/* Toggle visibility on check */
+input:checked + .slider .sun-icon {
+    opacity: 0;
+}
+input:checked + .slider .moon-icon {
+    opacity: 1;
 }
 
-.add-btn{
-    background-color: #fe424d !important; 
-    border: none !important;
+/* --- Search Bar Styling --- */
+.search-form .form-control {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-right: none;
+    border-radius: 1rem 0 0 1rem;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-.edit-btn{
-    background-color: #fe424d !important; 
-    border: none !important;
+.search-form .form-control:focus {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border-color: var(--accent-color); /* Keeps the border color change for a subtle focus indicator */
+    box-shadow: none; /* Removes the glow effect */
 }
 
-.show-img{
-    height: 30vh;
+.search-form .search-btn {
+    background-color: var(--accent-color);
+    color: #fff;
+    border: 1px solid var(--accent-color);
+    border-radius: 0 1rem 1rem 0;
+    transition: background-color 0.3s ease;
 }
 
-.btns{
-     display: flex; 
-
+.search-form .search-btn:hover {
+    background-color: var(--accent-color-darker);
+    border-color: var(--accent-color-darker);
+    color: #fff;
 }
 
-/* Hide the built-in password reveal button in Edge/Chrome */
-input[type="password"]::-ms-reveal,
-input[type="password"]::-ms-clear {
-    display: none;
-}
-input[type="password"]::-webkit-contacts-auto-fill-button,
-input[type="password"]::-webkit-credentials-auto-fill-button {
-    display: none !important;
-}
-
-
-#map { height: 400px; width: 80vh; }
-
- #filters {
-      display: flex;
-      align-items: center;
-      top: 0;
-      z-index: 1000;
-      background-color: white;
-      /* border-bottom: 1px solid #ccc; */
-    }
-
-    .filter {
-      margin-top: 15px;
-      display: flex;
-      flex-direction: column;
-     justify-content: center;
-     align-items: center;
-      margin-right: 25px;
-      cursor: pointer;
-      opacity: 0.8;
-    }
-    .filter:hover {
-      opacity: 1;
-      transition: opacity 0.3s ease;
-    }
-    .filter i {
-      margin-right:   5px;
-    }
-
-     .tax-toggle {
-      border: 1px solid black;
-    border-radius: 1rem;
-    margin-left: auto; /* Pushes to the right */
-    height: 3rem;
-    padding: 0.6rem;
-  }
-
- 
+/* --- Responsive Design --- */
 @media (max-width: 600px) {
     .container {
+        padding: 0 1rem;
+    }
+
+    .navbar-nav {
+        flex-direction: row;
+        justify-content: center;
         width: 100%;
-        padding: 0 10px;
     }
-    nav {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    /* Stack other elements as needed */
 }
