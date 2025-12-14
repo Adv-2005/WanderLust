@@ -1,4 +1,4 @@
-TEST# Wanderlust - A Travel Listing Platform
+TEST1# Wanderlust - A Travel Listing Platform
 
 Wanderlust is a full-stack web application that allows users to browse, add, and review travel listings. It's a directory of beautiful places to stay around the world, from cozy cottages to luxurious villas.
 
